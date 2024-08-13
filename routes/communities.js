@@ -8,6 +8,7 @@ const { default: mongoose } = require('mongoose');
 const Object = require('../models/objects');
 const { greatCircleDistance } = require('../modules/calcDistance');
 
+
 /**
  * POST - Join a community
  */
@@ -103,7 +104,7 @@ router.post('/create/:token', async (req, res) => {
 		name: newCommunity.name,
 	});
 
-	// Partie qui adhère à la commu crée 
+	// Partie qui adhère à la commu crée
   	// Ajoute l'ID de la nouvelle communauté à la liste des communautés du user
   	user.community.push(newCommunity._id);
 
@@ -128,9 +129,9 @@ router.get('/feed/:token', async (req, res) => {
 		const nameAndIdCommu = obj.availableIn.map(commu => {
 			if (user.community.includes(commu._id)) return { id: commu._id, nameCommu: commu.name };
 		}).filter(Boolean);
-		
+
 		// Reconstruction de l'objet (imposible de write un retour de mongoose ??)
-		let res = { 
+		let res = {
 			_id: obj._id,
 			name: obj.name,
 			isAvailable: obj.isAvailable,
@@ -163,7 +164,7 @@ router.get('/feed/:token', async (req, res) => {
 
 		res['distance'] = distance;
 		return res;
-	}); 
+	});
 
 	res.json({ result: true, items });
 });
